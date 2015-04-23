@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Matcher;
-
-
-
-import org.Herrera.api.Groovys;
-
 import groovy.servlet.AbstractHttpServlet;
 import groovy.util.ResourceException;
 
+/**修改脚本获取位置，方便自定义groovy脚本路径
+ * @author ming
+ *
+ */
 public class ControllerServlet extends AbstractHttpServlet {
 
 	@Override
