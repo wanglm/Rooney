@@ -4,3 +4,6 @@
 <script src="commons/js/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
 <!-- 滚动背景图片 -->
 <script src="commons/js/plugins/backstretch/jquery.backstretch.min.js"></script>
+<!-- websocket -->
+<script src="commons/js/plugins/sockjs/sockjs.min.js"></script>
+<script src="commons/js/plugins/stomp/stomp.min.js"></script>

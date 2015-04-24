@@ -11,10 +11,10 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin">
+		<form class="form-signin" action="Login.action?method=login" method="post">
 			<h2 class="form-signin-heading">请先登录</h2>
 			<label for="inputEmail" class="control-label">用户名</label> <input
-				type="email" id="inputEmail" class="form-control"
+				type="text" id="inputEmail" class="form-control"
 				placeholder="User name" required autofocus> <label
 				for="inputPassword" class="control-label">密码</label> <input
 				type="password" id="inputPassword" class="form-control"
