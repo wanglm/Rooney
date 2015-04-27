@@ -14,10 +14,10 @@
 		<form class="form-signin" action="Login.action?method=login" method="post">
 			<h2 class="form-signin-heading">请先登录</h2>
 			<label for="inputEmail" class="control-label">用户名</label> <input
-				type="text" id="inputEmail" class="form-control"
+				type="text" id="inputEmail" class="form-control" name="username"
 				placeholder="User name" required autofocus> <label
 				for="inputPassword" class="control-label">密码</label> <input
-				type="password" id="inputPassword" class="form-control"
+				type="password" name="userpass" id="inputPassword" class="form-control"
 				placeholder="Password" required>
 			<div class="checkbox">
 				<label> <input type="checkbox" value="remember-me">
@@ -26,6 +26,7 @@
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 			<button class="btn btn-lg btn-default btn-block" type="reset">重置</button>
+			<button class="btn btn-lg btn-info btn-block" type="submit">注册</button>
 		</form>
 	</div>
 </body>

@@ -39,12 +39,12 @@
 	}
 
 	function connect() {
-		var socket = new SockJS('service/ws');
+		var socket = new SockJS('/Rooney-webs/service/ws');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
-			stompClient.subscribe('topic/greetings', function(greeting) {
+			stompClient.subscribe('/topic/greetings', function(greeting) {
 				showGreeting(JSON.parse(greeting.body).content);
 			});
 		});
@@ -60,7 +60,7 @@
 
 	function sendName() {
 		var name = document.getElementById('name').value;
-		stompClient.send("app/hello", {}, JSON.stringify({
+		stompClient.send("/app/hello", {}, JSON.stringify({
 			'name' : name
 		}));
 	}
