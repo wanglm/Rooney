@@ -15,6 +15,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gmaven.version>1.0-rc-3</gmaven.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
+		<hadoop.version>2.6.0</hadoop.version>
+		<hive.version>1.1.0</hive.version>
 	</properties>
 
 	<dependencyManagement>
@@ -168,6 +170,12 @@
 				<artifactId>jsp-api</artifactId>
 				<version>2.0</version>
 				<scope>provided</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -190,6 +198,33 @@
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.35</version>
+			</dependency>
+			<dependency>
+				<groupId>c3p0</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-client</artifactId>
+				<version>${hadoop.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hive</groupId>
+				<artifactId>hive-jdbc</artifactId>
+				<version>${hive.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -229,5 +264,6 @@
 		<module>Rooney-api</module>
 		<module>Rooney-apps</module>
 		<module>Rooney-webs</module>
+		<module>Rooney-hadoop</module>
 	</modules>
 </project>

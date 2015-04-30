@@ -16,6 +16,7 @@ class LoginController {
 	@Autowired
 	@Qualifier("loginService")
 	private LoginService service
+	
 	@RequestMapping(params="method=login")
 	String login(@RequestParam("username")String username,@RequestParam("userpass")String userpass,HttpSession session){
 		def status=2

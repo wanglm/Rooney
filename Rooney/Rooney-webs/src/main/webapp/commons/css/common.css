@@ -1,3 +1,26 @@
 @CHARSET "UTF-8";
 
 @IMPORT url("../js/plugins/bootstrap-3.3.0/css/bootstrap.min.css");
+
+
+.body-color{
+	background-color: #34495e;
+}
+.main-row-top{
+	top: 60px;
+}
+
+.main-row-top-line{
+	height: 400px;
+}
+.main-row-top-colock{
+	max-height: 200px;
+}
+
+.main-row-top-heigh{
+	height: 138px;
+}
+
+.main-row-under{
+	height: 130px
+}

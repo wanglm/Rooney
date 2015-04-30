@@ -8,7 +8,7 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
-;( function( window ) {
+( function( window ) {
 	
 	'use strict';
 

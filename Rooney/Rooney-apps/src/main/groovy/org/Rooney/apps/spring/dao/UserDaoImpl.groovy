@@ -1,22 +1,45 @@
 package org.Rooney.apps.spring.dao
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List
 
 import org.Rooney.apps.entities.Users;
+import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository;
 @Repository
 class UserDaoImpl extends BaseDao implements UserDao {
+	
+	private class UserMapper implements RowMapper{
+
+		@Override
+		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			def user=new Users()
+			user.id=rs.getLong(1)
+			user.username=rs.getString(2)
+			user.userpass=rs.getString(3)
+			user.userEmail=rs.getString(4)
+			user.userOrgId=rs.getLong(5)
+			user.userType=rs.getInt(6)
+			user.userDsc=rs.getString(7)
+			user.createId=rs.getLong(8)
+			user.createTime=rs.getLong(9)
+			user.updateId=rs.getLong(10)
+			user.updateTime=rs.getLong(11)
+			return user;
+		}
+	}
 
 	@Override
 	public Users getUser(String username, String userpass) {
-		def sql="select * from hadoop_user where user_name='${username}' and user_password='${userpass}'"
-		return template.queryForObject(sql, Users);
+		def sql="select * from hadoop_user where user_name='${username}' and user_pass='${userpass}'"
+		return template.queryForObject(sql, new UserMapper());
 	}
 
 	@Override
 	public Users getUser(long id) {
 		def sql="select * from hadoop_user where id=${id}"
-		return template.queryForObject(sql, Users);
+		return template.queryForObject(sql, new UserMapper());
 	}
 
 	@Override
@@ -45,5 +68,4 @@ class UserDaoImpl extends BaseDao implements UserDao {
 		def sql="delete * from hadoop_user where id=${id}"
 		return exeSql(sql);
 	}
-
 }
