@@ -11,8 +11,8 @@
 <body class="body-color">
 	<%@include file="Main_Navbar.jsp"%>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-8 main-row-top">
+		<div class="row main-row-top">
+			<div class="col-md-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">走势图</h3>
@@ -22,7 +22,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 main-row-top">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">当前时间</h3>
@@ -45,8 +45,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6 main-row-top">
+		<div class="row main-row-top">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">饼状图</h3>
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 main-row-top">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">HDFS硬件信息</h3>
@@ -71,6 +71,7 @@
 			</div>
 		</div>
 	</div>
+		<%@include file="Main_List_Group.jsp"%>
 </body>
 <%@include file="/commons/jsp/Javascript.jsp"%>
 <script src="commons/js/main.js"></script>

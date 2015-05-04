@@ -9,6 +9,10 @@
 <script src="commons/js/plugins/highcharts-4.1.5/js/highcharts-more.js"></script>
 <script src="commons/js/plugins/highcharts-4.1.5/js/exporting.js"></script>
 <script src="commons/js/plugins/highcharts-4.1.5/js/solid-gauge.js"></script>
+<!-- datatables -->
+<script src="commons/js/plugins/datatablesp-1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- ztree -->
+<script src="commons/js/plugins/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <!-- websocket -->
 <script src="commons/js/plugins/sockjs/sockjs.min.js"></script>
 <script src="commons/js/plugins/stomp/stomp.min.js"></script>
