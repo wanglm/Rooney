@@ -15,4 +15,9 @@
 		autowire="byName"></bean>
 	<bean id="loginService" class="org.Rooney.apps.spring.service.impl.LoginServiceImpl"
 		autowire="byName"></bean>
+
+	<bean id="pyScriptDao" class="org.Rooney.apps.spring.dao.PyScriptDaoImpl"
+		autowire="byName"></bean>
+	<bean id="pyScriptService" class="org.Rooney.apps.spring.service.impl.PyScriptServiceImpl"
+		autowire="byName"></bean>
 </beans>

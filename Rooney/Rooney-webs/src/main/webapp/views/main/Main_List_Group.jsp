@@ -30,7 +30,7 @@
 			<h4 class="panel-title">
 				<a class="btn collapsed" data-toggle="collapse"
 					data-parent="#accordion" href="#collapseTwo"
-					aria-expanded="false" aria-controls="collapseTwo"> 定时任务<span
+					aria-expanded="false" aria-controls="collapseTwo"> Java定时任务<span
 					class="badge">14</span></a>
 			</h4>
 		</div>
@@ -39,7 +39,7 @@
 			<ul class="list-group">
 				<li class="list-group-item"><a href="Menu.action?method=list">MR任务</a><span
 					class="badge">14</span></li>
-				<li class="list-group-item"><a href="Menu.action?method=list">hive任务</a><span
+				<li class="list-group-item"><a href="PyScript.action?method=show">hive任务</a><span
 					class="badge">14</span></li>
 			</ul>
 		</div>

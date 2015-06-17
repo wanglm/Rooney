@@ -19,5 +19,4 @@ public class HelloMsg {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
 }

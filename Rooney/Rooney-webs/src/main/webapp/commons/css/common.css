@@ -3,7 +3,8 @@
 @IMPORT url("../js/plugins/bootstrap-3.3.0/css/bootstrap.min.css");
 @IMPORT url("../js/plugins/datatablesp-1.10.7/css/jquery.dataTables.min.css");
 @IMPORT url("../js/plugins/ztree/css/zTreeStyle/zTreeStyle.css");
-
+@IMPORT url("../js/plugins/bootstrap-datepicker-1.4.0-dist/css/bootstrap-datepicker.min.css");
+@IMPORT url("../js/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css");
 
 .body-color{
 	background-color: #34495e;
@@ -35,4 +36,8 @@
 	width: 10%;
 	z-index: 1000;
 	left: 0.2%;
+}
+
+#table-data-id{
+	display:none
 }
