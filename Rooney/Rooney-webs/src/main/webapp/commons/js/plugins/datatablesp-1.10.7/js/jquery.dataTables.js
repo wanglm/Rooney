@@ -1739,8 +1739,13 @@
 		var data = row._aData;
 	
 		if ( tr ) {
-			if ( data.DT_RowId ) {
+
+			//指定id,by ysuwlm@Gamil.com
+			/*if ( data.DT_RowId ) {
 				tr.id = data.DT_RowId;
+			}*/
+			if ( data.id ) {
+				tr.id = data.id;
 			}
 	
 			if ( data.DT_RowClass ) {
@@ -2537,7 +2542,7 @@
 		if ( settings.bAjaxDataGet ) {
 			settings.iDraw++;
 			_fnProcessingDisplay( settings, true );
-		
+		//by ysuwlm@Gamil.com
 		if(settings.oInit.ajaxInit||settings.iDraw!=1){
 			_fnBuildAjax(
 				settings,
@@ -3205,7 +3210,7 @@
 		if ( nodes.length === 0 ) {
 			return;
 		}
-		//自定义数据总数
+		//自定义数据总数,by ysuwlm@Gamil.com
 		var isAjaxInit=false
 		var initTotal=parseInt(settings.oInit.initTotal)
 		if(settings.oInit.ajaxInit||settings.iDraw!=1){
@@ -3243,7 +3248,7 @@
 	
 	function _fnInfoMacros ( settings, str )
 	{
-		//自定义数据总数
+		//自定义数据总数,by ysuwlm@Gamil.com
 		var isAjaxInit=false
 		var initTotal=parseInt(settings.oInit.initTotal)
 		if(settings.oInit.ajaxInit||settings.iDraw!=1){
@@ -3472,7 +3477,7 @@
 			settings.aoDrawCallback.push( {
 				"fn": function( settings ) {
 					if ( modern ) {
-							//自定义数据总数
+							//自定义数据总数,by ysuwlm@Gamil.com
 						var isAjaxInit=false
 						var initTotal=parseInt(settings.oInit.initTotal)
 						if(settings.oInit.ajaxInit||settings.iDraw!=1){
@@ -3517,7 +3522,7 @@
 	 */
 	function _fnPageChange ( settings, action, redraw )
 	{
-		//自定义数据总数
+		//自定义数据总数,by ysuwlm@Gamil.com
 		var isAjaxInit=false
 		var initTotal=parseInt(settings.oInit.initTotal)
 		if(settings.oInit.ajaxInit||settings.iDraw!=1){

@@ -12,7 +12,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Hadoop集群监控系统</a>
+			<a class="navbar-brand" href="Main.action?method=main">Hadoop集群监控系统</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<form class="navbar-form navbar-left" role="search">

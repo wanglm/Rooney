@@ -2,6 +2,9 @@ package org.Rooney.apps;
 
 import static org.junit.Assert.*;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +20,15 @@ public class AppConfigTest {
 
 	@Test
 	public void test() {
-		ExecutorService es = Executors.newCachedThreadPool();
+		Instant now=Instant.now();
+		Duration duration = Duration.ofDays(1);
+		Instant instant=now.minus(duration);
+		Long s=instant.until(now,ChronoUnit.HOURS);
+		System.out.println(s);
+		System.out.println(now);
+		System.out.println(now.getEpochSecond());
+		assertNotNull(s);
+		/*ExecutorService es = Executors.newCachedThreadPool();
 		try {
 			Runnable r = () -> {
 				for (int i = 0; i < 10; i++) {
@@ -37,6 +48,6 @@ public class AppConfigTest {
 		} finally {
 			es.shutdownNow();
 		}
-		assertTrue(es.isShutdown());
+		assertTrue(es.isShutdown());*/
 	}
 }

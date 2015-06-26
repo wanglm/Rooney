@@ -18,6 +18,7 @@
 		<div>
 			<button id="connect" onclick="connect();">Connect</button>
 			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+			<button id="connect" onclick="connect2();">test</button>
 		</div>
 		<div id="conversationDiv">
 			<label>What is your name?</label><input type="text" id="name" />
@@ -46,6 +47,18 @@
 			console.log('Connected: ' + frame);
 			stompClient.subscribe('/topic/greetings', function(greeting) {
 				showGreeting(JSON.parse(greeting.body).content);
+			});
+		});
+	}
+
+	function connect2() {
+		var socket = new SockJS('/Rooney-webs/service/test');
+		var stompClient2 = Stomp.over(socket);
+		stompClient2.connect({}, function(frame) {
+			console.log('Connected: ' + frame);
+			stompClient2.subscribe('/topic/test', function(json) {
+				console.log(json);
+				stompClient2.disconnect();
 			});
 		});
 	}

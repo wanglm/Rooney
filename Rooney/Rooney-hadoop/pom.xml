@@ -40,9 +40,5 @@
 			<groupId>org.apache.mahout</groupId>
 			<artifactId>mahout-mr</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.storm</groupId>
-			<artifactId>storm-core</artifactId>
-		</dependency>
 	</dependencies>
 </project>

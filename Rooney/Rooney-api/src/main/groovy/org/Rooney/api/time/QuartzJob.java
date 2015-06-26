@@ -1,12 +1,15 @@
 package org.Rooney.api.time;
 
+import java.io.Serializable;
+
 /**
  * @Description 定时任务数据模型父类 quartz必须属性类
  * @author ming
  * @date 2014-7-28
  * 
  */
-public class QuartzJob {
+public class QuartzJob implements Serializable{
+	private static final long serialVersionUID = -5072282969367747131L;
 
 	/** 任务名称 */
 	protected String jobName;

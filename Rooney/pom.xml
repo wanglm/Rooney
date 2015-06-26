@@ -228,30 +228,37 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-			<groupId>org.apache.mahout</groupId>
-			<artifactId>mahout-math</artifactId>
-			<version>${mahout.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mahout</groupId>
-			<artifactId>mahout-hdfs</artifactId>
-			<version>${mahout.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mahout</groupId>
-			<artifactId>mahout-mr</artifactId>
-			<version>${mahout.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.storm</groupId>
-			<artifactId>storm-core</artifactId>
-			<version>0.9.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ming.sqlserver</groupId>
-			<artifactId>jdbc-driver</artifactId>
-			<version>0.0.1</version>
-		</dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-math</artifactId>
+				<version>${mahout.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-hdfs</artifactId>
+				<version>${mahout.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-mr</artifactId>
+				<version>${mahout.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>com.ming.sqlserver</groupId>
+				<artifactId>jdbc-driver</artifactId>
+				<version>0.0.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

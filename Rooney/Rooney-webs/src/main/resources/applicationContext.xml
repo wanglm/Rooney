@@ -11,7 +11,9 @@
            	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
            	http://www.springframework.org/schema/tx 
            	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
-
+           	
+     <!-- websocket配置  -->     	
+    <context:component-scan base-package="org.springframework.web.socket.config"/>     	
 	<context:component-scan base-package="org.Rooney.apps.spring"></context:component-scan>
 	<context:property-placeholder location="classpath:db.properties" />
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -175,6 +177,6 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceServiceMethods" />
 	</aop:config>
 
-	<import resource="spring-beans.xml " />
+	<import resource="spring-beans.xml" />
 	<!-- <import resource="spring-quartz.xml" /> -->
 </beans>

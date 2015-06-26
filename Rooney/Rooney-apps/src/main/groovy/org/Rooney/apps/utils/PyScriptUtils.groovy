@@ -13,7 +13,7 @@ class PyScriptUtils {
 	 */
 	static List<Selects> getScriptNames(){
 		String[][] scripts=[
-			['cpc收入统计', 'cpc_push_tj.py'],
+			['cpc收入统计', 'cpc_tj.py'],
 			['广告展示统计', 'show_log_tj.py']
 		]
 		List<Selects> list=new ArrayList<Selects>(2)

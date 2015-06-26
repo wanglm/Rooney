@@ -16,7 +16,8 @@ class PyScript extends BaseEntity{
 	private String stepName		//步骤名
 	private String methodBegin	//方法开始时间
 	private String methodEnd	//方法结束时间
-	private String methodTime	//方法执行时间
+	private String methodTime	//方法执行时间
+	private String errorType    //错误类型，默认为null，可以忽略的为"pass"
 	public String getScriptName() {
 		return scriptName;
 	}
@@ -77,4 +78,11 @@ class PyScript extends BaseEntity{
 	public void setMethodTime(String methodTime) {
 		this.methodTime = methodTime;
 	}
+	public String getErrorType() {
+		return errorType;
+	}
+	public void setErrorType(String errorType) {
+		this.errorType = errorType;
+	}
+	
 }
