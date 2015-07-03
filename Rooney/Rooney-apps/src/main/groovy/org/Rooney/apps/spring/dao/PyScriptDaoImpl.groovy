@@ -11,7 +11,8 @@ import org.Rooney.apps.entities.PyScript;
 import org.Rooney.apps.entities.Pages.Page
 import org.Rooney.apps.entities.ResultMsg;
 import org.springframework.jdbc.core.RowMapper
-
+import org.springframework.stereotype.Repository;
+@Repository
 class PyScriptDaoImpl extends BaseDao implements PyScriptDao{
 
 	@Override

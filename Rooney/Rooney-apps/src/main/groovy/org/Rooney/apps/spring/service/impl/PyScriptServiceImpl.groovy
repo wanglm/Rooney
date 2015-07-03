@@ -19,7 +19,8 @@ import org.Rooney.apps.spring.dao.PyScriptDao;
 import org.Rooney.apps.spring.service.PyScriptService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.stereotype.Service;
+@Service
 class PyScriptServiceImpl implements PyScriptService{
 	@Qualifier('pyScriptDao')
 	@Autowired

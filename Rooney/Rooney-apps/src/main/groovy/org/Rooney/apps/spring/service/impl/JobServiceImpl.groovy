@@ -6,7 +6,8 @@ import org.Rooney.apps.entities.Jobs;
 import org.Rooney.apps.entities.ResultMsg;
 import org.Rooney.apps.entities.TableDatas;
 import org.Rooney.apps.spring.service.JobService;
-
+import org.springframework.stereotype.Service;
+@Service
 class JobServiceImpl implements JobService {
 
 	@Override
