@@ -1,5 +1,9 @@
 package org.Rooney.apps.utils
 
+
+import com.jcraft.jsch.ChannelExec
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.Session
 import org.Rooney.apps.entities.Selects
 
 /**python脚本监控工具类
@@ -12,10 +16,7 @@ class PyScriptUtils {
 	 * @return
 	 */
 	static List<Selects> getScriptNames(){
-		String[][] scripts=[
-			['cpc收入统计', 'cpc_tj.py'],
-			['广告展示统计', 'show_log_tj.py']
-		]
+		String[][] scripts=[['cpc收入统计', 'cpc_tj.py'], ['广告展示统计', 'show_log_tj.py']]
 		List<Selects> list=new ArrayList<Selects>(2)
 		scripts.each{  s->
 			def selects=new Selects()
@@ -25,4 +26,5 @@ class PyScriptUtils {
 		}
 		return list
 	}
+
 }

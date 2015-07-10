@@ -1,7 +1,11 @@
 package org.Rooney.apps.spring.service.impl
 
+import java.util.List;
+
+import org.Rooney.apps.entities.HadoopFiles;
 import org.Rooney.apps.entities.Options
 import org.Rooney.apps.entities.ResultMsg
+import org.Rooney.apps.entities.TableDatas;
 import org.Rooney.apps.spring.dao.LogDao
 import org.Rooney.apps.spring.service.LogService
 import org.Rooney.hadoop.ConfigPath;
@@ -81,5 +85,54 @@ class LogServiceImpl implements LogService {
 		FileUtils.putFileToHDFS(fileName, ConfigPath.LOG_HDFS_PATH)
 		msg.success=true
 		return msg;
+	}
+
+	@Override
+	public List<HadoopFiles> list(String fileName, String type, String sd,
+			String ed, String page) {
+		return dao.find(fileName, type, sd, ed, page, "100", "create_time","DESC")
+	}
+
+	@Override
+	public TableDatas<HadoopFiles> ajax(String fileName, String type,
+			String sd, String ed, String draw, String start, String length,
+			String orderColumn, String orderDir) {
+		def td=new TableDatas()
+		td.draw=Integer.valueOf(draw)
+		td.recordsFiltered=countForQuery(fileName,type,sd,ed)
+		td.recordsTotal=countForQuery(null,null,null,null)
+		td.data=dao.find(fileName, type,sd, ed, start,length,getOrderColumn(orderColumn),orderDir)
+		return td
+	}
+
+	/**表格获取排序的字段名
+	 * @param orderColumn
+	 * @return
+	 */
+	private String getOrderColumn(String orderColumn){
+		def n=Integer.valueOf(orderColumn)
+		String column=null
+		switch(n){
+			case 0:column="id"
+				break
+			case 2:column="file_name"
+				break
+			case 3:column="file_type"
+				break
+			case 4:column="create_id"
+				break
+			case 5:column="create_time"
+				break
+			case 6:column="update_id"
+				break
+			case 7:column="update_time"
+				break
+		}
+		return column
+	}
+
+	@Override
+	public long countForQuery(String fileName, String type, String sd, String ed) {
+		return dao.countForQuery(fileName, type, sd, ed)
 	}
 }

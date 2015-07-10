@@ -1,6 +1,10 @@
 package org.Rooney.apps.spring.service
 
-import org.Rooney.apps.entities.ResultMsg;
+import java.util.List
+
+import org.Rooney.apps.entities.HadoopFiles
+import org.Rooney.apps.entities.ResultMsg
+import org.Rooney.apps.entities.TableDatas
 
 /**日志操作service
  * @author ming
@@ -25,4 +29,40 @@ interface LogService {
 	 * @return ResultMsg
 	 */
 	ResultMsg putLogIntoHDFS(String id)
+	
+	
+
+	/**查询hadoop处理的文件
+	 * @param fileName
+	 * @param type 文件类型
+	 * @param sd
+	 * @param ed
+	 * @param page
+	 * @return
+	 */
+	List<HadoopFiles> list(String fileName,String type,String sd,String ed,String page)
+	
+	/**查询数量
+	 * @param fileName
+	 * @param type
+	 * @param sd
+	 * @param ed
+	 * @return
+	 */
+	long countForQuery(String fileName,String type,String sd, String ed)
+	
+	/**ajax查询hadoop处理的文件
+	 * @param fileName
+	 * @param type 文件类型
+	 * @param sd
+	 * @param ed
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @param orderColumn
+	 * @param orderDir
+	 * @return
+	 */
+	TableDatas<HadoopFiles> ajax(String fileName,String type,String sd, String ed,
+		String draw,String start,String length,String orderColumn,String orderDir)
 }

@@ -20,4 +20,9 @@
 		autowire="byName"></bean>
 	<bean id="pyScriptService" class="org.Rooney.apps.spring.service.impl.PyScriptServiceImpl"
 		autowire="byName"></bean>
+		
+	<bean id="logDao" class="org.Rooney.apps.spring.dao.LogDaoImpl"
+		autowire="byName"></bean>
+	<bean id="logService" class="org.Rooney.apps.spring.service.impl.LogServiceImpl"
+		autowire="byName"></bean>
 </beans>

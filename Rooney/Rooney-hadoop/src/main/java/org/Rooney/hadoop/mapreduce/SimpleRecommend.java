@@ -88,6 +88,38 @@ public class SimpleRecommend {
 	}
 
 	/**
+	 * 收集用户和物品的关系向量
+	 * 
+	 * @author ming
+	 *
+	 */
+	public static class NoneDoReducer
+			extends
+			Reducer<IntWritable, VectorOrPrefWritable, IntWritable, VectorAndPrefsWritable> {
+
+		@Override
+		protected void reduce(
+				IntWritable key,
+				Iterable<VectorOrPrefWritable> value,
+				Reducer<IntWritable, VectorOrPrefWritable, IntWritable, VectorAndPrefsWritable>.Context context)
+				throws IOException, InterruptedException {
+			List<Long> userIDs = new ArrayList<Long>();
+			List<Float> preferenceValues = new ArrayList<Float>();
+			Vector vector=null;
+			for (VectorOrPrefWritable val : value) {
+				vector=val.getVector();
+				//是否向量都是一样的？
+				LOG.info(vector.toString());
+					userIDs.add(val.getUserID());
+					preferenceValues.add(val.getValue());
+			}
+			VectorAndPrefsWritable vp = new VectorAndPrefsWritable(vector,userIDs,preferenceValues);
+			context.write(key, vp);
+		}
+
+	}
+
+	/**
 	 * 计算推荐向量
 	 * 
 	 * @author ming
