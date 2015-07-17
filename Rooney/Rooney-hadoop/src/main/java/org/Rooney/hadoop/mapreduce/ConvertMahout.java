@@ -1,15 +1,18 @@
 package org.Rooney.hadoop.mapreduce;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.Rooney.hadoop.HAppConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -23,15 +26,23 @@ public class ConvertMahout {
 	public static class ConvertMapper extends
 			Mapper<Text, Text, LongWritable, LongWritable> {
 		public Map<String, Long> adMap;
-		public Map<String, Long> UserMap;
+		public Map<String, Long> userMap;
+		private String str;
 
-		private void getIds(String fileName, Map<String, Long> map) {
-			try (BufferedReader fis = new BufferedReader(new FileReader(
-					fileName));) {
+		/**
+		 * 官方教程上获取cache的方法是错的，会造成数据错误 这是实验过的正确的使用cache的方法
+		 * 
+		 * @param in
+		 * @param map
+		 */
+		private void getIds(String inPath, FileSystem fs, Map<String, Long> map) {
+			try (FSDataInputStream in = fs.open(new Path(inPath));
+					BufferedReader fis = new BufferedReader(
+							new InputStreamReader(in));) {
 				String line = null;
 				String[] lineData = null;
 				while ((line = fis.readLine()) != null) {
-					lineData = line.split(",");
+					lineData = line.split("\\s+");
 					map.put(lineData[0], Long.valueOf(lineData[1]));
 				}
 			} catch (IOException ioe) {
@@ -43,28 +54,41 @@ public class ConvertMahout {
 		protected void setup(
 				Mapper<Text, Text, LongWritable, LongWritable>.Context context)
 				throws IOException, InterruptedException {
+			FileSystem fs = FileSystem.get(context.getConfiguration());
 			URI[] uris = Job.getInstance(context.getConfiguration())
 					.getCacheFiles();
 			adMap = new HashMap<String, Long>();// 存储转换的广告id
-			UserMap = new HashMap<String, Long>();// 存储转换的用户id
+			userMap = new HashMap<String, Long>();// 存储转换的用户id
 			for (URI uri : uris) {
 				String path = uri.getPath();
-				if (path.equals("adIds")) {
-					getIds(new Path(path).getName(), adMap);
+				if (path.equals(HAppConfig.INSTANCE.getValue("itemIdPath")
+						+ "/part-r-00000")) {
+					getIds(path, fs, adMap);
 				} else {
-					getIds(new Path(path).getName(), UserMap);
+					getIds(path, fs, userMap);
 				}
 			}
-
 		}
 
 		@Override
 		protected void map(Text key, Text value,
 				Mapper<Text, Text, LongWritable, LongWritable>.Context context)
 				throws IOException, InterruptedException {
-			LongWritable adId = new LongWritable(adMap.get(key.toString()));
-			LongWritable userId = new LongWritable(
-					UserMap.get(value.toString()));
+			String userID = null;
+			String itemID = null;
+			str = value.toString();
+			if (str.length() > 50) {
+				LOG.info("特殊行：------" + str);
+				String[] line = str.split(",");
+				userID = line[1];
+				itemID = line[0];
+			} else {
+				userID = value.toString();
+				itemID = key.toString();
+			}
+			LOG.info("itemID是否为空：------" + itemID);
+			LongWritable adId = new LongWritable(adMap.get(itemID));
+			LongWritable userId = new LongWritable(userMap.get(userID));
 			context.write(userId, adId);
 		}
 

@@ -90,5 +90,17 @@ public interface RecommendService {
 	 */
 	public Job getCooccurrence(String inputPath, String outputPath)
 			throws IOException, ClassNotFoundException, InterruptedException;
+	
+	/**获取推荐需要的最终数据
+	 * @param userInputPath 收集后的用户向量
+	 * @param itemInputPath 收集后的共现关系
+	 * @param outputPath
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws InterruptedException
+	 */
+	public Job recommondInput(String userInputPath, String itemInputPath,String outputPath)
+			throws IOException, ClassNotFoundException, InterruptedException;
 
 }

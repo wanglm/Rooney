@@ -66,11 +66,11 @@
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
-		</dependency>
+		</dependency><!-- 
 		<dependency>
 			<groupId>com.ming.sqlserver</groupId>
 			<artifactId>jdbc-driver</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.ming</groupId>
 			<artifactId>Rooney-hadoop</artifactId>

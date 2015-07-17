@@ -1,27 +1,19 @@
 package org.Rooney.hadoop.mapreduce;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.mahout.cf.taste.hadoop.RecommendedItemsWritable;
 import org.apache.mahout.cf.taste.hadoop.item.VectorAndPrefsWritable;
-import org.apache.mahout.cf.taste.hadoop.item.VectorOrPrefWritable;
 import org.apache.mahout.cf.taste.impl.recommender.ByValueRecommendedItemComparator;
 import org.apache.mahout.cf.taste.impl.recommender.GenericRecommendedItem;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
@@ -31,93 +23,7 @@ import org.apache.mahout.math.VectorWritable;
 import org.apache.mahout.math.Vector.Element;
 
 public class SimpleRecommend {
-	private static final Log LOG = LogFactory.getLog(SimpleRecommend.class);
 	private static final int NUM = 5;// 推荐数量
-
-	/**
-	 * 封装共现矩阵关系列
-	 * 
-	 * @author ming
-	 *
-	 */
-	public static class CoWrapper
-			extends
-			Mapper<IntWritable, VectorWritable, IntWritable, VectorOrPrefWritable> {
-
-		@Override
-		protected void map(
-				IntWritable key,
-				VectorWritable value,
-				Mapper<IntWritable, VectorWritable, IntWritable, VectorOrPrefWritable>.Context context)
-				throws IOException, InterruptedException {
-			context.write(key, new VectorOrPrefWritable(value.get()));
-		}
-
-	}
-
-	/**
-	 * 分割用户向量
-	 * 
-	 * @author ming
-	 *
-	 */
-	public static class UserVectorSplitter
-			extends
-			Mapper<IntWritable, VectorWritable, IntWritable, VectorOrPrefWritable> {
-
-		@Override
-		protected void map(
-				IntWritable key,
-				VectorWritable value,
-				Mapper<IntWritable, VectorWritable, IntWritable, VectorOrPrefWritable>.Context context)
-				throws IOException, InterruptedException {
-			long userID = key.get();
-			Vector userVector = value.get();
-			Iterator<Element> it = userVector.nonZeroes().iterator();
-			IntWritable itemIndexWritable = new IntWritable();
-			while (it.hasNext()) {
-				Element e = it.next();
-				int itemIndex = e.index();
-				float preferenceValue = (float) e.get();
-				itemIndexWritable.set(itemIndex);
-				context.write(itemIndexWritable, new VectorOrPrefWritable(
-						userID, preferenceValue));
-			}
-		}
-
-	}
-
-	/**
-	 * 收集用户和物品的关系向量
-	 * 
-	 * @author ming
-	 *
-	 */
-	public static class NoneDoReducer
-			extends
-			Reducer<IntWritable, VectorOrPrefWritable, IntWritable, VectorAndPrefsWritable> {
-
-		@Override
-		protected void reduce(
-				IntWritable key,
-				Iterable<VectorOrPrefWritable> value,
-				Reducer<IntWritable, VectorOrPrefWritable, IntWritable, VectorAndPrefsWritable>.Context context)
-				throws IOException, InterruptedException {
-			List<Long> userIDs = new ArrayList<Long>();
-			List<Float> preferenceValues = new ArrayList<Float>();
-			Vector vector=null;
-			for (VectorOrPrefWritable val : value) {
-				vector=val.getVector();
-				//是否向量都是一样的？
-				LOG.info(vector.toString());
-					userIDs.add(val.getUserID());
-					preferenceValues.add(val.getValue());
-			}
-			VectorAndPrefsWritable vp = new VectorAndPrefsWritable(vector,userIDs,preferenceValues);
-			context.write(key, vp);
-		}
-
-	}
 
 	/**
 	 * 计算推荐向量
@@ -184,37 +90,6 @@ public class SimpleRecommend {
 	public static class RecommedReducer
 			extends
 			Reducer<VarLongWritable, VectorWritable, VarLongWritable, RecommendedItemsWritable> {
-		private Map<Integer, Long> itemMap;// 自定义补充的物品
-		private int itemNum = 0; // 自定义补充的物品数量，防止越界
-
-		@Override
-		protected void setup(
-				Reducer<VarLongWritable, VectorWritable, VarLongWritable, RecommendedItemsWritable>.Context context)
-				throws IOException, InterruptedException {
-			URI[] uris = Job.getInstance(context.getConfiguration())
-					.getCacheFiles();
-			Path path = null;
-			for (URI uri : uris) {
-				String pathUrl = uri.getPath();
-				if (pathUrl.equals("items")) {
-					path = new Path(pathUrl);
-				}
-			}
-			try (BufferedReader fis = new BufferedReader(new FileReader(
-					path.getName()));) {
-				String line = null;
-				String[] lineData = null;
-				while ((line = fis.readLine()) != null) {
-					itemNum++;
-					lineData = line.split(",");
-					itemMap.put(Integer.valueOf(lineData[0]),
-							Long.valueOf(lineData[1]));
-				}
-			} catch (IOException e) {
-				LOG.error("读取item文件出错！  ", e);
-				throw e;
-			}
-		}
 
 		@Override
 		protected void reduce(
@@ -235,15 +110,13 @@ public class SimpleRecommend {
 			while (it.hasNext()) {
 				Element e = it.next();
 				int index = e.index();
-				index = index > itemNum ? itemNum : index;
 				float value = (float) e.get();
 				if (topitems.size() < NUM) {
-					// 添加物品，但是可以自定义
-					topitems.add(new GenericRecommendedItem(itemMap.get(index),
-							value));
+					topitems.add(new GenericRecommendedItem(index, value));
 				} else if (value > topitems.peek().getValue()) {
-					topitems.add(new GenericRecommendedItem(itemMap.get(index),
-							value));
+					// 优先queue添加元素必须非空，且自动排序
+					// 获取指定数量的排好序的推荐序列
+					topitems.add(new GenericRecommendedItem(index, value));
 					topitems.poll();
 				}
 			}
