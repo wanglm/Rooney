@@ -8,6 +8,7 @@ import org.Rooney.hadoop.ConfigPath;
 import org.Rooney.hadoop.HAppConfig;
 import org.Rooney.hadoop.HadoopConf;
 import org.apache.commons.lang.StringUtils;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
@@ -70,5 +71,19 @@ public class FileUtils {
 
 	public static String getToday(String pattern) {
 		return getDateString(new Date(), pattern);
+	}
+	
+	/**重置输出目录
+	 * @param output
+	 * @param config
+	 * @throws IOException
+	 */
+	public static Path reSetOutput(String output,Configuration config) throws IOException{
+		FileSystem fs=FileSystem.get(HadoopConf.INSTANCE.get());
+		Path out=new Path(output); 
+		if (fs.exists(out)) {
+			fs.delete(out, true);
+		}
+		return out;
 	}
 }

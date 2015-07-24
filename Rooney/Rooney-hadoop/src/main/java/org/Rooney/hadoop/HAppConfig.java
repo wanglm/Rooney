@@ -13,7 +13,7 @@ public enum HAppConfig {
 	private HAppConfig() {
 		Properties _pop = new Properties();
 		try {
-			_pop.load(HAppConfig.class.getResourceAsStream("/hadoop.properties"));
+			_pop.load(HAppConfig.class.getResourceAsStream("/hadoop-app.properties"));
 			this.pop = _pop;
 		} catch (IOException e) {
 			Logger log = LogManager.getLogger(HAppConfig.class);
