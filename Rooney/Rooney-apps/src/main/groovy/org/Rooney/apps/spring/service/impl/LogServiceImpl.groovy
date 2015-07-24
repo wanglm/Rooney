@@ -21,28 +21,31 @@ class LogServiceImpl implements LogService {
 	private LogDao dao
 
 	@Override
-	public ResultMsg writeIDFileToDB(String id) {
+	public ResultMsg saveIDFileToDB(String id) {
 		def msg=new ResultMsg()
-		def fileName=dao.findName(id)
-		def localUrl=HAppConfig.INSTANCE.getValue("logPath")+"/"+fileName
+		msg.msg="导入数据库生成id存储失败！"
+		//def fileName=dao.findName(id)
+		//def localUrl=HAppConfig.INSTANCE.getValue("logPath")+"/"+fileName
+		def localUrl="C:/Users/ming/Desktop/ad_push_click_log-20150708.txt"
 		def file=new File(localUrl)
 		List<String> userIDs=new ArrayList<String>();
+		Map<String,Integer> userIDMap=new HashMap<String,Integer>()
 		List<String> itemIDs=new ArrayList<String>();
-		file.newReader().with{ e->
-			def line=null
-			while((line=e.readLine())!=null){
-				def lineData=line.split(",")
-				userIDs.add(lineData[0])
-				itemIDs.add(lineData[1])
+		Map<String,Integer> itemIDMap=new HashMap<String,Integer>()
+		file.newReader().eachLine{ line->
+			def lineData=line.split(",")
+			if(!itemIDMap.containsKey(lineData[1])){
+				itemIDMap.put(lineData[0], 1)
+				itemIDs.add(lineData[0])
+			}
+			if(!userIDMap.containsKey(lineData[1])){
+				userIDMap.put(lineData[1], 1)
+				userIDs.add(lineData[1])
 			}
 		}
-		def n=dao.saveUser(userIDs)
-		def m=dao.saveItem(itemIDs)
-		if(n>0&&m>0){
-			msg.success=true
-		}else{
-			msg.msg="导入数据库生成id存储失败！"
-		}
+		dao.saveItem(itemIDs)
+		dao.saveUser(userIDs)
+		msg.success=true
 		return msg
 	}
 

@@ -13,6 +13,8 @@ interface JobService {
 	 * @return
 	 */
 	List<Jobs> list()
+	
+	Jobs getJob(Jobs job)
 
 	TableDatas<Jobs> ajax(String jobStatus,String cronExpression,
 	String draw,String start,String length,String orderColumn,String orderDir)

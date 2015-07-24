@@ -25,25 +25,24 @@ class LoginController {
 		def status=2
 		def page=null
 		def user=null
-		/*try {
+		try {
 			user=service.login(username, userpass)
 			if(user){
 				status=1
 			}else{
 				status=0
 			}
+			switch(status){
+				case 1:
+					page="main/Main"
+					session.setAttribute("user", user)
+					break
+				case 2:page="main/Error"
+					break
+				default :page="main/Login_false"
+			}
 		} catch (Exception e) {
 			log.error("登录出错：", e)
-		}*/
-		status=1
-		switch(status){
-			case 1:
-				page="main/Main"
-				session.setAttribute("user", user)
-				break
-			case 2:page="main/Error"
-				break
-			default :page="main/Login_false"
 		}
 		return page
 	}

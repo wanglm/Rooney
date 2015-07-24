@@ -14,7 +14,7 @@ interface LogService {
 	/**将原始日志写入数据库，利用数据库自动生成long类型的id
 	 * @return ResultMsg
 	 */
-	ResultMsg writeIDFileToDB(String id)
+	ResultMsg saveIDFileToDB(String id)
 	/**从数据库读取生成id文件
 	 * @return ResultMsg
 	 */

@@ -15,19 +15,19 @@ import org.springframework.jdbc.core.RowMapper;
 
 class LogDaoImpl extends BaseDao implements LogDao {
 
-	private int saveDB(List<String> list,String tableName,String columName){
+	private void saveDB(List<String> list,String tableName,String columName){
 		def sql="INSERT INTO ${tableName}(${columName},create_time) VALUES (?,?)"
 		def time=System.currentTimeMillis()
 		BatchPreparedStatementSetter pss=new BatchPreparedStatementSetter(){
 					void setValues(PreparedStatement ps, int i) throws SQLException{
-						ps.setString(list.get(i), 0)
-						ps.setLong(time, 1)
+						ps.setString(1,list.get(i))
+						ps.setLong(2,time)
 					}
 					int getBatchSize(){
 						return list.size()
 					}
 				}
-		return template.batchUpdate(sql,pss)
+		template.batchUpdate(sql,pss)
 	}
 
 	private List<Options> findDB(String tableName,String columName){
@@ -41,8 +41,8 @@ class LogDaoImpl extends BaseDao implements LogDao {
 		return template.query(sql, rm)
 	}
 	@Override
-	public int saveUser(List<String> userIds) {
-		return this.saveDB(userIds, "hadoop_recommend_user", "user_id")
+	public void saveUser(List<String> userIds) {
+		this.saveDB(userIds, "hadoop_recommend_user", "user_id")
 	}
 
 	@Override
@@ -51,8 +51,8 @@ class LogDaoImpl extends BaseDao implements LogDao {
 	}
 
 	@Override
-	public int saveItem(List<String> itemIds) {
-		return this.saveDB(itemIds, "hadoop_recommend_item", "item_id")
+	public void saveItem(List<String> itemIds) {
+		this.saveDB(itemIds, "hadoop_recommend_item", "item_id")
 	}
 
 	@Override

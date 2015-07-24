@@ -25,4 +25,9 @@
 		autowire="byName"></bean>
 	<bean id="logService" class="org.Rooney.apps.spring.service.impl.LogServiceImpl"
 		autowire="byName"></bean>
+		
+	<bean id="jobDao" class="org.Rooney.apps.spring.dao.JobDaoImpl"
+		autowire="byName"></bean>
+	<bean id="jobService" class="org.Rooney.apps.spring.service.impl.JobServiceImpl"
+		autowire="byName"></bean>
 </beans>

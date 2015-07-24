@@ -39,9 +39,11 @@
 			<ul class="list-group">
 				<li class="list-group-item"><a href="Menu.action?method=list">MR任务</a><span
 					class="badge">14</span></li>
-				<li class="list-group-item"><a href="PyScript.action?method=show&page=script">hive任务</a><span
+				<li class="list-group-item"><a href="PyScript.action?method=show&page=script">Hive任务</a><span
 					class="badge">14</span></li>
-				<li class="list-group-item"><a href="PyScript.action?method=show&page=check">hive数据检查</a><span
+				<li class="list-group-item"><a href="PyScript.action?method=show&page=check">Hive数据检查</a><span
+					class="badge">14</span></li>
+				<li class="list-group-item"><a href="Jobs.action?method=show">Quartz任务</a><span
 					class="badge">14</span></li>
 			</ul>
 		</div>
@@ -57,6 +59,8 @@
 		<div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
 			aria-labelledby="log">
 			<ul class="list-group">
+				<li class="list-group-item"><a href="Log.action?method=show">数据日志</a><span
+					class="badge">14</span></li>
 				<li class="list-group-item"><a href="Menu.action?method=list">MR日志</a><span
 					class="badge">14</span></li>
 				<li class="list-group-item"><a href="Menu.action?method=list">hive日志</a><span

@@ -24,7 +24,7 @@ public class QuartzJob implements Serializable{
 	protected String cronExpression;
 
 	/**
-	 * 任务执行策略：Misfire处理规则 取值： {@link org.Azgalor.base.time.QuartzJobConfig}
+	 * 任务执行策略：Misfire处理规则 取值： {@link org.Rooney.api.time.QuartzJobConfig}
 	 * CronTrigger withMisfireHandlingInstructionDoNothing
 	 * ——不触发立即执行,等待下次Cron触发频率到达时刻开始按照Cron频率依次执行
 	 * 
@@ -37,7 +37,7 @@ public class QuartzJob implements Serializable{
 	protected int executeStrategy;
 
 	/**
-	 * 定时任务错误策略 取值： {@link org.Azgalor.base.time.QuartzJobConfig}
+	 * 定时任务错误策略 取值： {@link org.Rooney.api.time.QuartzJobConfig}
 	 * {@link org.quartz.JobExecutionException} setRefireImmediately 重新执行任务
 	 * setUnscheduleAllTriggers 立即停止所有相关这个任务的触发器,任务不会再运行
 	 * setUnscheduleFiringTrigger 立即停止针对当前执行任务的触发器，其他触发器不受影响

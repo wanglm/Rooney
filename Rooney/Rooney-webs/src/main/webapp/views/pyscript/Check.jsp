@@ -71,7 +71,7 @@
 						<table id="script-table" class="display" cellspacing="0">
 							<thead>
 								<tr>
-									<th>id</th>
+									<th class="table-data-hidden">id</th>
 									<th>NO</th>
 									<th>脚本</th>
 									<th>日志</th>
@@ -83,7 +83,7 @@
 							<tbody>
 								<c:forEach items="${list}" var="py" varStatus="vs">
 									<tr>
-										<td id="table-data-id">${py.id}</td>
+										<td class="table-data-hidden">${py.id}</td>
 										<td>${vs.index+1}</td>
 										<td>${py.scriptName}</td>
 										<td>${py.logName}</td>
@@ -142,7 +142,7 @@ $('#query').on('click',function(){
 var vIds=[]
 $('#script-table tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
-        var vId=$(this).find('#table-data-id').text();
+        var vId=$(this).find('#table-data-hidden').text();
         if(this.id!=''){
         	vId=this.id
         }

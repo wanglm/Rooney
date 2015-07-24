@@ -10,7 +10,7 @@ interface LogDao {
 	 * @param userIds
 	 * @return
 	 */
-	int saveUser(List<String> userIds)
+	void saveUser(List<String> userIds)
 	/**从数据库里读出所有用户id
 	 * @return
 	 */
@@ -19,7 +19,7 @@ interface LogDao {
 	 * @param userIds
 	 * @return
 	 */
-	int saveItem(List<String> itemIds)
+	void saveItem(List<String> itemIds)
 	/**从数据库里读出所有物品id
 	 * @return
 	 */
